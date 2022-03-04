@@ -1,0 +1,52 @@
+//Solution avec table de hachage
+ALGORITHM Solution2
+VAR
+    i,j: INTEGER;
+    count: INTEGER:=0;
+    tab1 : ARRAY_OF INTEGER[6];
+    tab2 : ARRAY_OF INTEGER[6];
+    thas: HASH_TABLE<INTEGER,INTEGER> ;
+    som : INTEGER := 0;
+BEGIN
+    //remplissage du tableau
+    write("Remplissage du premier tableau");
+    FOR i FROM 1 TO tab1.length-1 STEP 1  DO
+        write("veuillez saisir une valeur pour la case",i);
+        read(tab1[i]);
+    END_FOR
+    write("Remplissage du deuxième tableau");
+    FOR i FROM 1 TO tab1.length-1 STEP 1  DO
+        write("veuillez saisir une valeur pour la case",i);
+        read(tab2[i]);
+    END_FOR
+    
+    //insertion  des éléments dans la table de hachage
+    FOR i FROM 1 TO tab1.length-1 STEP 1  DO
+        // pour le premier ensemble
+        IF (thas.lookup(tab1[i]) = true) THEN
+            count := thas.get(tab1[i]);
+            thas.insert(tab1[i],count+1); 
+        ELSE
+            thas.insert(tab1[i],1); 
+        END_IF
+
+        // pour le deuxième ensemble
+        IF (thas.lookup(tab2[i]) = true) THEN
+            count := thas.get(tab2[i]);
+            thas.insert(tab2[i],count+1); 
+        ELSE
+            thas.insert(tab2[i],1); 
+        END_IF        
+    END_FOR
+
+    // somme des éléments
+    FOR i FROM 1 TO tab1.length-1 STEP 1  DO
+        IF (thas.get(tab1[i]) = 1) THEN
+            som := som + tab1[i];
+        END_IF
+        IF (thas.get(tab2[i]) = 1) THEN
+            som := som + tab2[i];
+        END_IF
+    END_FOR
+    write("La somme des éléments distincts est : ",som);
+END

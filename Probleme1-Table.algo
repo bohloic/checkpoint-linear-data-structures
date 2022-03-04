@@ -1,0 +1,50 @@
+//Solution 1 avec tableau 
+
+ALGORITHM Solution1
+VAR
+    i,j: INTEGER;
+    tab1 : ARRAY_OF INTEGER[6];
+    tab2 : ARRAY_OF INTEGER[6];
+    som : INTEGER := 0;
+    ctrl: BOOLEAN:= false ; 
+BEGIN
+    //remplissage du tableau
+    write("Remplissage du premier tableau");
+    FOR i FROM 1 TO tab1.length-1 STEP 1  DO
+        write("veuillez saisir une valeur pour la case",i);
+        read(tab1[i]);
+    END_FOR
+    write("Remplissage du deuxième tableau");
+    FOR i FROM 1 TO tab1.length-1 STEP 1  DO
+        write("veuillez saisir une valeur pour la case",i);
+        read(tab2[i]);
+    END_FOR
+    
+    //somme des éléments du premier ensemble
+    FOR i FROM 1 TO tab1.length-1 STEP 1  DO
+        FOR j FROM 1 TO tab2.length-1 STEP 1  DO
+            IF (tab1[i] = tab2[j]) THEN
+                ctrl := true;
+            END_IF
+        END_FOR   
+        IF (ctrl = true) THEN
+            som := som + tab1[i];
+            ctrl := false;
+        END_IF
+    END_FOR
+    
+    //somme des éléments du deuxième ensemble
+    ctrl := false;
+    FOR i FROM 1 TO tab2.length-1 STEP 1  DO
+        FOR j FROM 1 TO tab2.length-1 STEP 1  DO
+            IF (tab2[i] = tab1[j]) THEN
+                ctrl := true;
+            END_IF
+        END_FOR   
+        IF (ctrl = true) THEN
+            som := som + tab2[i];
+            ctrl := false;
+        END_IF
+    END_FOR
+    write("La somme des éléments distincts est : ",som);
+END
